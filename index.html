@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Шифрование и дешифрование сообщений</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      color: #666;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .output {
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      padding: 10px;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 0;
+      font-weight: bold;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="container">
+    <h1>Шифрование и дешифрование сообщений</h1>
+    <p>Введите сообщение для шифрования:</p>
+    <form id="encryptionForm">
+      <label for="messageInput">Сообщение:</label>
+      <input type="text" id="messageInput" required>
+      <br>
+      <button type="button" onclick="encryptMessage()">Зашифровать</button>
+    </form>
+    <div class="output">
+      <h3>Зашифрованное сообщение:</h3>
+      <p id="encryptedMessage"></p>
+    </div>
+
+    <p>Введите зашифрованное сообщение для дешифрования:</p>
+    <form id="decryptionForm">
+      <label for="encryptedMessageInput">Зашифрованное сообщение:</label>
+      <input type="text" id="encryptedMessageInput" required>
+      <br>
+      <button type="button" onclick="decryptMessage()">Дешифровать</button>
+    </form>
+    <div class="output">
+      <h3>Дешифрованное сообщение:</h3>
+      <p id="decryptedMessage"></p>
+    </div>
+  </div>
+
+  <script>
+    const encryptionKeys = {
+      'a': '!', 'b': '@', 'c': '#',
+      'd': '$', 'e': '%', 'f': '^',
+      'g': '&', 'h': '*', 'i': '(',
+      'j': ')', 'k': '-', 'l': '=',
+      'm': '+', 'n': '?', 'o': ':',
+      'p': ';', 'q': '<', 'r': '>',
+      's': '/', 't': '[', 'u': ']',
+      'v': '{', 'w': '}', 'x': '|',
+      'y': '.', 'z': ',', ' ': '~'
+    };
+
+    const decryptionKeys = {
+      '!': 'a', '@': 'b', '#': 'c',
+      '$': 'd', '%': 'e', '^': 'f',
+      '&': 'g', '*': 'h', '(': 'i',
+      ')': 'j', '-': 'k', '=': 'l',
+      '+': 'm', '?': 'n', ':': 'o',
+      ';': 'p', '<': 'q', '>': 'r',
+      '/': 's', '[': 't', ']': 'u',
+      '{': 'v', '}': 'w', '|': 'x',
+      '.': 'y', ',': 'z', '~': ' '
+    };
+
+    function encryptMessage() {
+      const messageInput = document.getElementById("messageInput");
+      const encryptedMessage = document.getElementById("encryptedMessage");
+
+      const message = messageInput.value.toLowerCase();
+      let encrypted = "";
+
+      for (let i = 0; i < message.length; i++) {
+        const char = message[i];
+        if (char in encryptionKeys) {
+          encrypted += encryptionKeys[char];
+        }
+      }
+
+      encryptedMessage.textContent = encrypted;
+      messageInput.value = "";
+    }
+
+    function decryptMessage() {
+      const encryptedMessageInput = document.getElementById("encryptedMessageInput");
+      const decryptedMessage = document.getElementById("decryptedMessage");
+
+      const encryptedMessage = encryptedMessageInput.value.toLowerCase();
+      let decrypted = "";
+
+      for (let i = 0; i < encryptedMessage.length; i++) {
+        const char = encryptedMessage[i];
+        if (char in decryptionKeys) {
+          decrypted += decryptionKeys[char];
+        }
+      }
+
+      decryptedMessage.textContent = decrypted;
+      encryptedMessageInput.value = "";
+    }
+  </script>
+</body>
+</html>
